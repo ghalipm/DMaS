@@ -1,6 +1,6 @@
-package com.libraryAutomation.pages;
+package com.podiumAutomation.pages;
 
-import com.libraryAutomation.utilities.Driver;
+import com.podiumAutomation.utilities.Driver;
 import org.openqa.selenium.support.PageFactory;
 
 public abstract class BasePage {

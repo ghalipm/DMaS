@@ -1,4 +1,4 @@
-package com.libraryAutomation.runner;
+package com.podiumAutomation.runner;
 
 
 import io.cucumber.junit.Cucumber;
@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
 
         features = "@target/rerun.txt",
-        glue = "com/libraryAutomation/stepDefinitions"
+        glue = "com/podiumAutomation/stepDefinitions"
 
 )
 public class FailedTestRunner {

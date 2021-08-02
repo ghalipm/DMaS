@@ -1,4 +1,4 @@
-package com.libraryAutomation.runner;
+package com.podiumAutomation.runner;
 
 
 import io.cucumber.junit.Cucumber;
@@ -9,11 +9,12 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {
                 "html:target/cucumber-report.html",
+                "pretty",
                 "json:target/cucumber.json",
                 "rerun:target/rerun.txt"
         },
         features = "src/test/resources/features",
-        glue = "com/libraryAutomation/stepDefinitions",
+        glue = "com/podiumAutomation/stepDefinitions",
         dryRun = false,
         tags= ""
 

@@ -1,4 +1,4 @@
-package com.libraryAutomation.utilities;
+package com.podiumAutomation.utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;

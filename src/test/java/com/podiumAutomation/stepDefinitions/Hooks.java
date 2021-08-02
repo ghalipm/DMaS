@@ -1,8 +1,8 @@
-package com.libraryAutomation.stepDefinitions;
+package com.podiumAutomation.stepDefinitions;
 
 
-import com.libraryAutomation.utilities.BrowserUtils;
-import com.libraryAutomation.utilities.Driver;
+import com.podiumAutomation.utilities.BrowserUtils;
+import com.podiumAutomation.utilities.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
@@ -14,12 +14,12 @@ public class Hooks {
     public void tearDownScenario(Scenario scenario){
         //if my scenario failed
         // go and take screen shot
-/*
+
         if (!scenario.isFailed()) {
             byte[] screenShot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenShot, "image/png", scenario.getName());
         }
-*/
+
         BrowserUtils.sleep(1);
         Driver.closeDriver();
 
