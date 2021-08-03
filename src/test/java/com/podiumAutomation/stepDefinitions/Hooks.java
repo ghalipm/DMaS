@@ -15,7 +15,14 @@ public class Hooks {
         //if my scenario failed
         // go and take screen shot
 
+        /* take screen shot if the test does not fail
         if (!scenario.isFailed()) {
+            byte[] screenShot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenShot, "image/png", scenario.getName());
+        }
+         */
+
+        if (scenario.isFailed()) {
             byte[] screenShot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenShot, "image/png", scenario.getName());
         }
