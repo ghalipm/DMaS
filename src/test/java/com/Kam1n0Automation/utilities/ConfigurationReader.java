@@ -1,4 +1,4 @@
-package com.podiumAutomation.utilities;
+package com.Kam1n0Automation.utilities;
 
 import java.io.FileInputStream;
 import java.io.IOException;

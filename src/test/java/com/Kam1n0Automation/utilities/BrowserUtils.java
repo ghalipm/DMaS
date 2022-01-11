@@ -1,15 +1,21 @@
-package com.podiumAutomation.utilities;
+package com.Kam1n0Automation.utilities;
 
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
+import java.io.File;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
+
+import static com.Kam1n0Automation.utilities.Driver.getDriver;
 
 public class BrowserUtils {
     /*
@@ -27,17 +33,17 @@ public class BrowserUtils {
      * returns to original window if windows with given title not found
      */
     public static void switchToWindow(String targetTitle) {
-        String origin = com.podiumAutomation.utilities.Driver.getDriver().getWindowHandle();
-        for (String handle : com.podiumAutomation.utilities.Driver.getDriver().getWindowHandles()) {
-            com.podiumAutomation.utilities.Driver.getDriver().switchTo().window(handle);
-            if (com.podiumAutomation.utilities.Driver.getDriver().getTitle().equals(targetTitle)) {
+        String origin = getDriver().getWindowHandle();
+        for (String handle : getDriver().getWindowHandles()) {
+            getDriver().switchTo().window(handle);
+            if (getDriver().getTitle().equals(targetTitle)) {
                 return;
             }
         }
-        com.podiumAutomation.utilities.Driver.getDriver().switchTo().window(origin);
+        getDriver().switchTo().window(origin);
     }
     public static void hover(WebElement element) {
-        Actions actions = new Actions(com.podiumAutomation.utilities.Driver.getDriver());
+        Actions actions = new Actions(getDriver());
         actions.moveToElement(element).perform();
     }
     /**
@@ -54,7 +60,7 @@ public class BrowserUtils {
         return elemTexts;
     }
     public static List<String> getElementsText(By locator) {
-        List<WebElement> elems = com.podiumAutomation.utilities.Driver.getDriver().findElements(locator);
+        List<WebElement> elems = getDriver().findElements(locator);
         List<String> elemTexts = new ArrayList<>();
         for (WebElement el : elems) {
             elemTexts.add(el.getText());
@@ -62,19 +68,19 @@ public class BrowserUtils {
         return elemTexts;
     }
     public static WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
-        WebDriverWait wait = new WebDriverWait(com.podiumAutomation.utilities.Driver.getDriver(), timeToWaitInSec);
+        WebDriverWait wait = new WebDriverWait(getDriver(), timeToWaitInSec);
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
     public static WebElement waitForVisibility(By locator, int timeout) {
-        WebDriverWait wait = new WebDriverWait(com.podiumAutomation.utilities.Driver.getDriver(), timeout);
+        WebDriverWait wait = new WebDriverWait(getDriver(), timeout);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
     public static WebElement waitForClickability(WebElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(com.podiumAutomation.utilities.Driver.getDriver(), timeout);
+        WebDriverWait wait = new WebDriverWait(getDriver(), timeout);
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
     public static WebElement waitForClickability(By locator, int timeout) {
-        WebDriverWait wait = new WebDriverWait(com.podiumAutomation.utilities.Driver.getDriver(), timeout);
+        WebDriverWait wait = new WebDriverWait(getDriver(), timeout);
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
     public static void waitForPageToLoad(long timeOutInSeconds) {
@@ -85,7 +91,7 @@ public class BrowserUtils {
         };
         try {
             System.out.println("Waiting for page to load...");
-            WebDriverWait wait = new WebDriverWait(com.podiumAutomation.utilities.Driver.getDriver(), timeOutInSeconds);
+            WebDriverWait wait = new WebDriverWait(getDriver(), timeOutInSeconds);
             wait.until(expectation);
         } catch (Throwable error) {
             System.out.println(
@@ -93,7 +99,7 @@ public class BrowserUtils {
         }
     }
     public static WebElement fluentWait(final WebElement webElement, int timeinsec) {
-        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(com.podiumAutomation.utilities.Driver.getDriver())
+        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
                 .withTimeout(Duration.ofSeconds(timeinsec))
                 .pollingEvery(Duration.ofMillis(500))
                 .ignoring(NoSuchElementException.class);
@@ -104,6 +110,46 @@ public class BrowserUtils {
         });
         return element;
     }
+
+    public static void dropFile(File filePath, WebElement target, int i) {
+        if (!filePath.exists())
+            throw new WebDriverException("File not found: " + filePath.toString());
+
+        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+
+        String JS_DROP_FILE =
+                "var target = arguments[0]," +
+                        "    offsetX = arguments[1]," +
+                        "    offsetY = arguments[2]," +
+                        "    document = target.ownerDocument || document," +
+                        "    window = document.defaultView || window;" +
+                        "" +
+                        "var input = document.createElement('INPUT');" +
+                        "input.type = 'file';" +
+                        "input.style.display = 'none';" +
+                        "input.onchange = function () {" +
+                        "  var rect = target.getBoundingClientRect()," +
+                        "      x = rect.left + (offsetX || (rect.width >> 1))," +
+                        "      y = rect.top + (offsetY || (rect.height >> 1))," +
+                        "      dataTransfer = { files: this.files };" +
+                        "" +
+                        "  ['dragenter', 'dragover', 'drop'].forEach(function (name) {" +
+                        "    var evt = document.createEvent('MouseEvent');" +
+                        "    evt.initMouseEvent(name, !0, !0, window, 0, 0, 0, x, y, !1, !1, !1, !1, 0, null);" +
+                        "    evt.dataTransfer = dataTransfer;" +
+                        "    target.dispatchEvent(evt);" +
+                        "  });" +
+                        "" +
+                        "  setTimeout(function () { document.body.removeChild(input); }, 25);" +
+                        "};" +
+                        "document.body.appendChild(input);" +
+                        "return input;";
+
+        WebElement input = (WebElement) jse.executeScript(JS_DROP_FILE, target, 0, 0);
+        input.sendKeys(filePath.getAbsoluteFile().toString());
+    }
+
+
     /**
      * Verifies whether the element matching the provided locator is displayed on page
      * fails if the element matching the provided locator is not found or not displayed
@@ -112,7 +158,7 @@ public class BrowserUtils {
      */
     public static void verifyElementDisplayed(By by) {
         try {
-            Assert.assertTrue("Element not visible: " + by, com.podiumAutomation.utilities.Driver.getDriver().findElement(by).isDisplayed());
+            Assert.assertTrue("Element not visible: " + by, getDriver().findElement(by).isDisplayed());
         } catch (NoSuchElementException e) {
             Assert.fail("Element not found: " + by);
         }
@@ -188,17 +234,17 @@ public class BrowserUtils {
      *
      * @param element
      */
-    public void clickWithJS(WebElement element) {
-        ((JavascriptExecutor) com.podiumAutomation.utilities.Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-        ((JavascriptExecutor) com.podiumAutomation.utilities.Driver.getDriver()).executeScript("arguments[0].click();", element);
+    public static void clickWithJS(WebElement element) {
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", element);
     }
     /**
      * Scrolls down to an element using JavaScript
      *
      * @param element
      */
-    public void scrollToElement(WebElement element) {
-        ((JavascriptExecutor) com.podiumAutomation.utilities.Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+    public static void scrollToElement(WebElement element) {
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
     /**
      * Performs double click action on an element
@@ -206,7 +252,7 @@ public class BrowserUtils {
      * @param element
      */
     public void doubleClick(WebElement element) {
-        new Actions(com.podiumAutomation.utilities.Driver.getDriver()).doubleClick(element).build().perform();
+        new Actions(getDriver()).doubleClick(element).build().perform();
     }
     /**
      * Changes the HTML attribute of a Web Element to the given value using JavaScript
@@ -216,7 +262,7 @@ public class BrowserUtils {
      * @param attributeValue
      */
     public void setAttribute(WebElement element, String attributeName, String attributeValue) {
-        ((JavascriptExecutor) com.podiumAutomation.utilities.Driver.getDriver()).executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attributeName, attributeValue);
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attributeName, attributeValue);
     }
     /**
      * @param element

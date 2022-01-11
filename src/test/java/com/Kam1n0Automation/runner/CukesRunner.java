@@ -1,5 +1,4 @@
-package com.podiumAutomation.runner;
-
+package com.Kam1n0Automation.runner;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -9,16 +8,14 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {
                 "html:target/cucumber-report.html",
-                "pretty",
                 "json:target/cucumber.json",
                 "rerun:target/rerun.txt"
         },
         features = "src/test/resources/features",
-        glue = "com/podiumAutomation/stepDefinitions",
+        glue = "com/Kam1n0Automation/stepDefinitions",
         dryRun = false,
         tags= ""
 
 )
 public class CukesRunner {
-
 }
