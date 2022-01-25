@@ -104,16 +104,14 @@ public class B20_AMS_CloneApplications_stepDefinitions {
     @Then("user see Indexing Completed message")
     public void user_see_indexing_completed_message() {
         BrowserUtils.waitForVisibility(loginPage.indexingCompletedMessage,75);
-        if(loginPage.indexingCompletedMessage.isDisplayed()) {
-            Assert.assertTrue(loginPage.indexingCompletedMessage.isDisplayed());
-        }else{
-            BrowserUtils.waitForClickability(loginPage.indexingAlertCloseButton,75);
+        if (!loginPage.indexingCompletedMessage.isDisplayed()) {
+            BrowserUtils.waitForClickability(loginPage.indexingAlertCloseButton, 75);
             loginPage.indexingAlertCloseButton.sendKeys(Keys.ENTER);
-            BrowserUtils.waitForClickability(loginPage.indexButton,5);
+            BrowserUtils.waitForClickability(loginPage.indexButton, 5);
             loginPage.indexButton.sendKeys(Keys.ENTER);
-            BrowserUtils.waitForVisibility(loginPage.indexingCompletedMessage,75);
-            Assert.assertTrue(loginPage.indexingCompletedMessage.isDisplayed());
+            BrowserUtils.waitForVisibility(loginPage.indexingCompletedMessage, 75);
         }
+        Assert.assertTrue(loginPage.indexingCompletedMessage.isDisplayed());
 
     }
 
