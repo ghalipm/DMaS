@@ -1,5 +1,7 @@
 @A0
 Feature:Kam1n0 page.
+  ## WARNING: Do not update Selenium!!!
+  # Else need to rewrite the Driver and others.
 ## Pre-conditions of running following scenarios
   # 1. install jdk11
   # 2. latest Apache Maven is installed

@@ -79,13 +79,14 @@ public class A3_Github_stepDefinitions {
     public void user_either_confirm_or_cancel_download() throws AWTException, InterruptedException {
 
         homePage.actualKam1n0DownloadLink.click();
-        System.out.println("after Kam1n0-Server.exe is clicked");
+        System.out.println("Kam1n0-Server.exe is clicked = "+homePage.actualKam1n0DownloadLink.isDisplayed());
 
         // scrolling to kamCommuGitHubPage.actualKam1n0DownloadLink:
         //((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", kamCommuGitHubPage.actualKam1n0DownloadLink);
 
         //in order to click one of the buttons in the Windows alert (Not Web Alert!)
         // following effort is needed.
+/**
 
         Robot robot = new Robot();
         //robot.mouseMove(370,1000); // position of "Keep" button
@@ -100,6 +101,11 @@ public class A3_Github_stepDefinitions {
         BrowserUtils.wait(1);
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
         BrowserUtils.wait(2);
+
+ */
+
+
+
 
         // after each execution of the test,
         // you see an "Unconfirmed xxxxxx.crdownload" with

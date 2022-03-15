@@ -48,7 +48,7 @@ public class ResultFilesCheckingDetails_stepDefinitions {
             }
 
             Assert.assertTrue(loginPage.headerForPermanentLinkResultFiles.isDisplayed());
-            BrowserUtils.wait(1);
+            BrowserUtils.wait(5);
             Assert.assertTrue("Failed to show the header!", loginPage.headerForPermanentLinkResultFiles.getText().contains("SUMMARY"));
 
         }else{
@@ -59,9 +59,9 @@ public class ResultFilesCheckingDetails_stepDefinitions {
     @Then("user click details and click one of the functions in the list")
     public void user_click_details_and_click_one_of_the_functions_in_the_list() {
         if(numOfResultFiles>0) {
-            BrowserUtils.wait(1);
+            BrowserUtils.wait(5);
             loginPage.detailsInHeaderForPermanentLinkResultFiles.click();
-            BrowserUtils.wait(2);
+            BrowserUtils.wait(5);
             loginPage.rowOneOfDetailsForPermanentLinkResultFiles.click();
         }else{
             System.out.println("Nothing to click when there is no ResultFile available");
@@ -74,7 +74,7 @@ public class ResultFilesCheckingDetails_stepDefinitions {
         if(numOfResultFiles==0){
             System.out.println("There is nothing to see: no ResultFile edited or deleted!");
         }else {
-            BrowserUtils.wait(1);
+            BrowserUtils.waitForVisibility(loginPage.treeAnchorOfRowOfDetailsForPermanentLinkResultFiles,5);
             Assert.assertTrue(loginPage.treeAnchorOfRowOfDetailsForPermanentLinkResultFiles.getText().contains("effective address"));
         }
 

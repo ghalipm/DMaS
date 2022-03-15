@@ -26,6 +26,22 @@ public class Driver {
                         driverPool.get().manage().window().maximize();
                         driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                         break;
+                    /** Headless: for deployment
+                     *
+                     * case "chrome":
+                     *                         WebDriverManager.chromedriver().setup();
+                     *
+                     *                         ChromeOptions chromeOptions = new ChromeOptions();
+                     *
+                     *                         chromeOptions.addArguments("--headless");
+                     *                         driverPool.set(new ChromeDriver(chromeOptions));
+                     *                         driverPool.get().manage().window().maximize();
+                     *                         driverPool.get().manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+                     *
+                     *                         break;
+                     *
+                      */
+
 
                     case "firefox":
                         WebDriverManager.firefoxdriver().setup();

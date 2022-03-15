@@ -16,7 +16,7 @@ public class Hooks {
     @After (order = 2)
     public void tearDownScenario(Scenario scenario) throws AWTException {
         //if my scenario failed
-        // go and take screen shot
+        // go and take screenshot
 
         if (!scenario.isFailed()) {
 
@@ -50,7 +50,7 @@ public class Hooks {
         }
 
         BrowserUtils.wait(1);
-        Driver.closeDriver();
+        //Driver.closeDriver();
 
     }
 

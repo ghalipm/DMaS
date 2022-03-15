@@ -9,7 +9,7 @@ public class ConfigurationReader {
     // In this class we will implement the repeated steps of reading from configuration.properties file
 
     //#1 We create the object of properties
-    private static Properties properties = new Properties();
+    private static final Properties properties = new Properties();
     static{
         //#2 Get the path and open the file
 

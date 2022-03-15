@@ -64,9 +64,8 @@ public class B20_AMS_CloneApplications_stepDefinitions {
 
     @Then("user see Indexing Tab in the Tasks")
     public void user_see_indexing_tab_in_the_tasks() {
-
+        BrowserUtils.waitForClickability(loginPage.indexingTab,5);
         Assert.assertTrue(loginPage.indexingTab.isDisplayed());
-
     }
 
     @Then("user click Indexing Tab")
@@ -134,7 +133,6 @@ public class B20_AMS_CloneApplications_stepDefinitions {
     @When("user click the Example field and select available binary file")
     public void user_click_the_example_field_and_select_available_binary_file() {
         loginPage.functionSearchSelectingFile();
-
     }
 
     String mainHandle=getDriver().getWindowHandle();
@@ -160,12 +158,10 @@ public class B20_AMS_CloneApplications_stepDefinitions {
          mainHandle=getDriver().getWindowHandle();
 
         System.out.println(" main WindowHandle() = " + getDriver().getWindowHandle());
-
         System.out.println("CurrentUrl = " + getDriver().getCurrentUrl());
         System.out.println("getDriver().getWindowHandles() = " + getDriver().getWindowHandles());
 
         for (String handle : handles) {
-
             if ( !handle.equals(mainHandle)) {
                 // moved from mainWindow to the second Window
                 getDriver().switchTo().window(handle);
