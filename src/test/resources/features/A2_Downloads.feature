@@ -10,9 +10,10 @@ Feature: user should be able to download Kam1n0 Server
 
   Scenario: user downloading Kam1n0 Server
     When user click on downloads tab
-    Then user click download Kam1n0-Server button
+    And user click download Kam1n0-Server button
     Then user lands at Kam1n0 Community releases page on GitHub
-    Then user click Kam1n0-Server link
+    When user click on Latest version of Kam1n0
+    And user click Kam1n0-Server Exec link
     Then user either confirm or cancel download
 
 

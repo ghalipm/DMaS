@@ -1,4 +1,4 @@
-@4
+@A4
 Feature: user should be able access Kam1n0 on GitHub.
 ## Pre-conditions of running following scenarios
   # 1. install jdk11
@@ -11,9 +11,13 @@ Feature: user should be able access Kam1n0 on GitHub.
   Scenario: user landing on GitHub page of Kam1n0
     When user clicks GitHub button
     Then user lands at GitHub page of Kam1n0 Community
-    Then user clicks releases page link of Kam1n0-Server
+    When user clicks releases page link of Kam1n0-Server
     Then user lands at Kam1n0 Community releases page on GitHub
-    Then user click Kam1n0-Server link
+    When user click on Latest version of Kam1n0
+    And user click Kam1n0-Server Exec link
     Then user either confirm or cancel download
+
+
+
 
 

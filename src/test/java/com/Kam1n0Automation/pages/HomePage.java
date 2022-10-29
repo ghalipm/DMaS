@@ -13,8 +13,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//a[@class='navbar-brand']")
     public WebElement dmasLabLink;
 
-    @FindBy(xpath = "(//a[@href='https://github.com/McGill-DMaS/Kam1n0-Community/releases'])[1]")
-    public WebElement downloadsLink2Git;
+    //@FindBy(xpath = "//a[@href='/McGill-DMaS/Kam1n0-Community/releases']")
+    @FindBy(xpath = "(//*[@href=\"https://github.com/McGill-DMaS/Kam1n0-Community/releases\"])[1]")
+    public WebElement downloadsKam1noServerButton; // DOWNLOAD KAM1N0 SERVER BUTTON
 
     @FindBy(xpath = "//a[@id='link-login']")
     public WebElement loginTab;
@@ -25,7 +26,10 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "(//a[.='release page'])[2]")
     public WebElement releaseLink;
 
-    @FindBy(xpath = "//a[@href='/McGill-DMaS/Kam1n0-Community/releases/download/2.2.0/Kam1n0-Server.exe']")
+    @FindBy(xpath = "(//*[@href='/McGill-DMaS/Kam1n0-Community/releases/latest'])[1]")
+    public WebElement kam1noLatestVersionLink;
+
+    @FindBy(xpath = "//*[.='Kam1n0-Server.exe']")
     public WebElement actualKam1n0DownloadLink;
 
 

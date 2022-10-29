@@ -49,8 +49,8 @@ public class Hooks {
             scenario.attach(screenShot, "image/png", scenario.getName());
         }
 
-        BrowserUtils.wait(1);
-        //Driver.closeDriver();
+        BrowserUtils.wait(3);
+        Driver.closeDriver();
 
     }
 
